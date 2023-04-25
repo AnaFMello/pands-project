@@ -5,14 +5,23 @@
 ## 4. Performs any other analysis you think is appropriate
 
 
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
+# Load the Iris dataset from the CSV file into a DataFrame
+df = pd.read_csv("iris.data")
 
-## my reaserch : 
-## http://www.lac.inpe.br/~rafael.santos/Docs/CAP394/WholeStory-Iris.html
-## https://levelup.gitconnected.com/unveiling-the-mysteries-of-the-iris-dataset-a-comprehensive-analysis-and-machine-learning-f5c4f9dbcd6d
-## https://medium.com/analytics-vidhya/exploratory-data-analysis-iris-dataset-4df6f045cda#:~:text=Data%20Insights%3A,-The%20pdf%20curve&text=If%20petal%20length%20%3C%202.1%2C%20then,then%20species%20is%20Iris%20Virginica
-## https://www.kaggle.com/code/lalitharajesh/iris-dataset-exploratory-data-analysis
-## https://www.geeksforgeeks.org/exploratory-data-analysis-on-iris-dataset/
-## https://www.kaggle.com/code/zachgold/python-iris-data-visualizations
-## https://www.analyticsvidhya.com/blog/2021/06/guide-to-data-visualization-with-python-part-1/
+# Output a summary of each variable to a text file
+with open("variable_summaries.txt", "w") as file:
+    file.write(str(df.describe()))
 
+# Save a histogram of each variable to PNG files
+for column in df.columns[:-1]:
+    plt.figure()
+    sns.histplot(data=df, x=column)
+    plt.savefig(f"{column}_histogram.png")
+
+# Output a scatter plot of each pair of variables
+##sns.pairplot(df, hue="species")
+##plt.savefig("scatter_plots.png")
